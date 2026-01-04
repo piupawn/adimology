@@ -21,8 +21,8 @@ export default function ResultTable({ marketData, calculated }: ResultTableProps
           <DataRow label="ARA (Offer Teratas)" value={`Rp ${formatNumber(marketData.offerTeratas)}`} />
           <DataRow label="ARB (Bid Terbawah)" value={`Rp ${formatNumber(marketData.bidTerbawah)}`} />
           <DataRow label="Fraksi" value={formatNumber(marketData.fraksi)} />
-          <DataRow label="Total Bid" value={formatNumber(marketData.totalBid)} />
-          <DataRow label="Total Offer" value={formatNumber(marketData.totalOffer)} />
+          <DataRow label="Total Bid" value={formatNumber(marketData.totalBid / 100)} />
+          <DataRow label="Total Offer" value={formatNumber(marketData.totalOffer / 100)} />
         </div>
       </div>
 
