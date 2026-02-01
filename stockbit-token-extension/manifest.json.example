@@ -7,8 +7,7 @@
     "webRequest"
   ],
   "host_permissions": [
-    "https://stockbit.com/*",
-    "https://api.stockbit.com/*",
+    "https://*.stockbit.com/*",
     "https://YOUR_APP_DOMAIN.netlify.app/*"
   ],
   "background": {

@@ -14,6 +14,37 @@ Adimology adalah aplikasi web untuk menganalisis target harga saham berdasarkan 
 
 ---
 
+## Fitur Utama
+
+- **Analisis Target**: Menghitung target harga "Realistis (R1)" dan "Maksimal" berdasarkan rata-rata harga pembelian broker (Avg Bandar).
+- **Data Terintegrasi Stockbit**: Mengambil data transaksi broker summary.
+- **History & Watchlist**: Menyimpan riwayat analisis untuk dipantau di kemudian hari.
+- **Sync Watchlist & Hapus Otomatis**: Menampilkan watchlist langsung dari akun Stockbit termasuk fungsi delete.
+- **Tracking Real Harga (H+1)**: Secara otomatis memperbarui harga riil di hari bursa berikutnya untuk memverifikasi apakah target analisis tercapai.
+- **Sistem Background Job & Retry**: Pemantauan status background job (analisis otomatis) dengan tombol **Retry** untuk menjalankan ulang job yang gagal.
+- **Advanced Charts (TradingView & Chartbit)**:
+  - Integrasi grafis dengan **Chartbit**.
+  - Integrasi **TradingView Advanced Chart** dengan indikator RSI dan Oversold untuk konfirmasi sinyal Buy/Sell. Register ke https://www.tradingview.com/ untuk bisa melihat grafiknya.
+- **Filter Flag & Watchlist**: Filter cepat berdasarkan flag emiten (Big Spec, Trend, dll) dan grup watchlist untuk mempermudah pemantauan portfolio.
+- **Frozen Glass Design System**: Antarmuka modern dengan gaya *Glassmorphism/Frozen Glass Material*.
+- **Multi-Theme Support**: Dukungan penuh mode **Light** dan **Dark** yang sinkron dengan sistem atau preferensi pengguna.
+- **Ringkasan Broker (Top 1, 3, 5)**: Visualisasi kekuatan akumulasi vs distribusi broker.
+- **Export to PDF**: Unduh laporan riwayat analisis dalam format PDF yang rapi.
+- **AI Story Analysis**: Analisis berita dan sentimen pasar menggunakan AI (Gemini) untuk merangkum story, SWOT, dan katalis emiten secara instan.
+- **Multi-Version Analysis Tracking**: Menyimpan dan menampilkan riwayat analisis AI sebelumnya sehingga Anda bisa melacak perubahan narasi pasar dari waktu ke waktu.
+
+---
+
+## Tech Stack
+
+- **Frontend**: [Next.js 15 (App Router)](https://nextjs.org/), React 19, Tailwind CSS 4.
+- **Backend/Database**: [Supabase](https://supabase.com/) (PostgreSQL).
+- **Deployment**: [Netlify](https://www.netlify.com/) (dengan Netlify Functions & Scheduled Functions).
+- **AI Engine**: [Google Gemini Pro](https://ai.google.dev/) dengan Google Search Grounding untuk data berita terkini.
+- **Tools**: `jspdf` & `html2canvas` untuk ekspor PDF, `lucide-react` untuk ikon.
+
+---
+
 ## Pilih Opsi Instalasi
 
 Pilih salah satu opsi instalasi yang sesuai dengan kebutuhan Anda:
@@ -225,37 +256,6 @@ Aplikasi akan berjalan di [http://localhost:3000](http://localhost:3000)
 | `CRON_SECRET` | ✅ | ❌ | Secret untuk scheduled functions |
 | `GEMINI_API_KEY` | ✅ | ✅ | API Key Google AI Studio |
 | `STOCKBIT_JWT_TOKEN` | ❌ | ⚠️ | Fallback token manual |
-
----
-
-## Fitur Utama
-
-- **Analisis Target**: Menghitung target harga "Realistis (R1)" dan "Maksimal" berdasarkan rata-rata harga pembelian broker (Avg Bandar).
-- **Data Terintegrasi Stockbit**: Mengambil data transaksi broker summary.
-- **History & Watchlist**: Menyimpan riwayat analisis untuk dipantau di kemudian hari.
-- **Sync Watchlist & Hapus Otomatis**: Menampilkan watchlist langsung dari akun Stockbit termasuk fungsi delete.
-- **Tracking Real Harga (H+1)**: Secara otomatis memperbarui harga riil di hari bursa berikutnya untuk memverifikasi apakah target analisis tercapai.
-- **Sistem Background Job & Retry**: Pemantauan status background job (analisis otomatis) dengan tombol **Retry** untuk menjalankan ulang job yang gagal.
-- **Advanced Charts (TradingView & Chartbit)**:
-  - Integrasi grafis dengan **Chartbit**.
-  - Integrasi **TradingView Advanced Chart** dengan indikator RSI dan Oversold untuk konfirmasi sinyal Buy/Sell. Register ke https://www.tradingview.com/ untuk bisa melihat grafiknya.
-- **Filter Flag & Watchlist**: Filter cepat berdasarkan flag emiten (Big Spec, Trend, dll) dan grup watchlist untuk mempermudah pemantauan portfolio.
-- **Frozen Glass Design System**: Antarmuka modern dengan gaya *Glassmorphism/Frozen Glass Material*.
-- **Multi-Theme Support**: Dukungan penuh mode **Light** dan **Dark** yang sinkron dengan sistem atau preferensi pengguna.
-- **Ringkasan Broker (Top 1, 3, 5)**: Visualisasi kekuatan akumulasi vs distribusi broker.
-- **Export to PDF**: Unduh laporan riwayat analisis dalam format PDF yang rapi.
-- **AI Story Analysis**: Analisis berita dan sentimen pasar menggunakan AI (Gemini) untuk merangkum story, SWOT, dan katalis emiten secara instan.
-- **Multi-Version Analysis Tracking**: Menyimpan dan menampilkan riwayat analisis AI sebelumnya sehingga Anda bisa melacak perubahan narasi pasar dari waktu ke waktu.
-
----
-
-## Tech Stack
-
-- **Frontend**: [Next.js 15 (App Router)](https://nextjs.org/), React 19, Tailwind CSS 4.
-- **Backend/Database**: [Supabase](https://supabase.com/) (PostgreSQL).
-- **Deployment**: [Netlify](https://www.netlify.com/) (dengan Netlify Functions & Scheduled Functions).
-- **AI Engine**: [Google Gemini Pro](https://ai.google.dev/) dengan Google Search Grounding untuk data berita terkini.
-- **Tools**: `jspdf` & `html2canvas` untuk ekspor PDF, `lucide-react` untuk ikon.
 
 ---
 
