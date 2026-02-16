@@ -318,7 +318,19 @@ export const exportHistoryByEmitenToPDF = async (
     format: 'a4'
   });
 
-  const uniqueEmitens = Array.from(new Set(data.map(r => r.emiten))).sort();
+  // 1. Get ALL unique emitens matching filters (ignoring pagination)
+  const fetchParams = new URLSearchParams();
+  if (filters.emiten) fetchParams.append('emiten', filters.emiten);
+  if (filters.sector !== 'all') fetchParams.append('sector', filters.sector);
+  if (filters.fromDate) fetchParams.append('fromDate', filters.fromDate);
+  if (filters.toDate) fetchParams.append('toDate', filters.toDate);
+  if (filters.status !== 'all') fetchParams.append('status', filters.status);
+  fetchParams.append('limit', '5000'); // Fetch enough to cover all unique emitens
+  
+  const initialRes = await fetch(`/api/watchlist-history?${fetchParams}`);
+  const initialJson = await initialRes.json();
+  const allRecords = (initialJson.data || []) as AnalysisRecord[];
+  const uniqueEmitens = Array.from(new Set(allRecords.map(r => r.emiten))).sort();
   const groupedData: { [emiten: string]: AnalysisRecord[] } = {};
   
   await Promise.all(uniqueEmitens.map(async (emiten) => {
@@ -329,6 +341,11 @@ export const exportHistoryByEmitenToPDF = async (
         sortBy: 'from_date',
         sortOrder: 'desc',
       });
+      if (filters.sector && filters.sector !== 'all') params.append('sector', filters.sector);
+      if (filters.fromDate) params.append('fromDate', filters.fromDate);
+      if (filters.toDate) params.append('toDate', filters.toDate);
+      if (filters.status && filters.status !== 'all') params.append('status', filters.status);
+
       const response = await fetch(`/api/watchlist-history?${params}`);
       const json = await response.json();
       if (json.success) {

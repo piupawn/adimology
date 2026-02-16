@@ -660,3 +660,83 @@ export async function setProfileSetting(key: string, value: string) {
 
   return data;
 }
+
+/**
+ * Get emiten summary statistics for hit targets
+ */
+export async function getEmitenSummaryStats(limit: number = 5) {
+  // 1. Get all successful analysis records
+  // We need to fetch enough records to cover the 'limit' for each emiten
+  // Since we don't know which emitens have recent data, we'll fetch a larger set first
+  const { data, error } = await supabase
+    .from('stock_queries')
+    .select('emiten, sector, target_realistis, target_max, max_harga, status, from_date, bandar')
+    .eq('status', 'success')
+    .order('from_date', { ascending: false });
+
+  if (error) {
+    console.error('Error fetching summary stats:', error);
+    throw error;
+  }
+
+  // 2. Aggregate data per emiten
+  const emitenGroups: Record<string, any[]> = {};
+  data.forEach(record => {
+    if (!emitenGroups[record.emiten]) {
+      emitenGroups[record.emiten] = [];
+    }
+    if (emitenGroups[record.emiten].length < limit) {
+      emitenGroups[record.emiten].push(record);
+    }
+  });
+
+  // 3. Calculate stats for each emiten
+  const stats = Object.entries(emitenGroups).map(([emiten, records]) => {
+    const tradingDays = records.length;
+    let hitR1 = 0;
+    let hitMax = 0;
+    const sector = records[0]?.sector; // Take sector from latest record
+
+    // Calculate bandar frequencies
+    const bandarCounts: Record<string, number> = {};
+    
+    records.forEach(r => {
+      if (r.max_harga && r.target_realistis && r.max_harga >= r.target_realistis) {
+        hitR1++;
+      }
+      if (r.max_harga && r.target_max && r.max_harga >= r.target_max) {
+        hitMax++;
+      }
+      
+      if (r.bandar) {
+        bandarCounts[r.bandar] = (bandarCounts[r.bandar] || 0) + 1;
+      }
+    });
+
+    // Get top 3 bandar with counts
+    const topBandars = Object.entries(bandarCounts)
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, 3)
+      .map(([name, count]) => ({ name, count }));
+
+    const hitRateR1 = (hitR1 / tradingDays) * 100;
+    const hitRateMax = (hitMax / tradingDays) * 100;
+    const totalHitRate = (hitRateR1 + hitRateMax) / 2;
+
+    return {
+      emiten,
+      sector,
+      tradingDays,
+      hitR1,
+      hitMax,
+      hitRateR1,
+      hitRateMax,
+      totalHitRate,
+      topBandars
+    };
+  });
+
+  // 4. Sort by totalHitRate descending
+  return stats.sort((a, b) => b.totalHitRate - a.totalHitRate);
+}
+

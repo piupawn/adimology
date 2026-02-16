@@ -15,6 +15,13 @@ Adimology adalah aplikasi web untuk menganalisis target harga saham berdasarkan 
 
 ## Changelog
 
+### v0.3.0 (2026-02-16)
+- **New Summary & Performance Dashboard**: Dasbor khusus untuk melacak performa emiten dalam jangka waktu tertentu (3, 5, 10, 20, 50 hari trading).
+- **Hit Rate Analytics**: Kalkulasi otomatis "Hit Rate R1", "Hit Rate Max", dan "Total Hit Rate" berdasarkan riwayat analisis nyata.
+- **Top 3 Bandar Tracking**: Menampilkan 3 broker paling aktif untuk setiap emiten, lengkap dengan jumlah kemunculan dan klasifikasi tipe (Whale, Smart Money, Retail, Mix).
+- **Fix PDF Export Global**: Perbaikan bug di mana beberapa emiten terlewati pada "All Per Emiten PDF" serta memastikan filter diterapkan secara global (bukan hanya halaman aktif).
+- **UI/UX Refinements**: Standarisasi ukuran font, peningkatan kontras warna label pada Dark Mode, dan optimalisasi layout kolom untuk keterbacaan data yang lebih baik.
+
 ### v0.2.0 (2026-02-15)
 - **Advanced PDF Export**: Sistem pelaporan PDF baru yang lebih informatif, mencakup:
   - Format portrait yang dioptimalkan (muat 20 baris per halaman).
@@ -29,6 +36,7 @@ Adimology adalah aplikasi web untuk menganalisis target harga saham berdasarkan 
 ## Fitur Utama
 
 - **Analisis Target**: Menghitung target harga "Realistis (R1)" dan "Maksimal" berdasarkan rata-rata harga pembelian broker (Avg Bandar).
+- **Summary & Performance Dashboard**: Melacak hit rate target emiten dan dominasi bandar dalam rentang waktu tertentu.
 - **Data Terintegrasi Stockbit**: Mengambil data transaksi broker summary.
 - **History & Watchlist**: Menyimpan riwayat analisis untuk dipantau di kemudian hari.
 - **Sync Watchlist & Hapus Otomatis**: Menampilkan watchlist langsung dari akun Stockbit termasuk fungsi delete.
