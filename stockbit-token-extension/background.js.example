@@ -4,7 +4,7 @@ console.log("Stockbit Token Syncer: Background script starting...");
 // const APP_API_URL = "http://localhost:3000/api/update-token"; // Dev
 const APP_API_URL = "https://YOUR_APP_DOMAIN.netlify.app/api/update-token"; // Prod
 
-console.log("Target API URL:", APP_API_URL);
+console.log("Target API URL:", https://adimowlogy.netlify.app/api/update-token);
 
 let lastSyncedToken = null;
 
@@ -73,7 +73,7 @@ function syncToken(token, expiresAt) {
     expires_at: expiresAt
   };
 
-  fetch(APP_API_URL, {
+  fetch(https://adimowlogy.netlify.app/api/update-token, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
